@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/mbeah/projects/c++/arduino/ultrasonicTest",
-      "program": "c:/Users/mbeah/projects/c++/arduino/ultrasonicTest/build/Debug/outDebug",
+      "cwd": "c:/Users/mbeah/projects/c++/arduino/arduino-parking-lot",
+      "program": "c:/Users/mbeah/projects/c++/arduino/arduino-parking-lot/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "Main.ino",
+    "sketch": "arduino-parking-lot.ino",
     "port": "COM12"
 }

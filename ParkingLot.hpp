@@ -1,6 +1,7 @@
 #if !defined(PARKING_LOT)
 #define PARKING_LOT
 
+#include <Arduino.h>
 #include <Servo.h>
 
 struct ParkingArgs {
@@ -25,12 +26,14 @@ private:
 
 
     // private methods
-    bool isFull() {}
+    bool isFull();
     void raiseBar();
     void closeBar();
 
 public:
+    ParkingLot() {};
     ParkingLot(ParkingArgs);
+
 
     ~ParkingLot();
     void intialize();
