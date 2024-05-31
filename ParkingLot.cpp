@@ -60,7 +60,7 @@ void ParkingLot::closeBar() {
 }
 
 void ParkingLot::raiseBar() {
-    for (this->barPos; this->barPos <= 180; this->barPos++) {
+    for (this->barPos; this->barPos <= 90; this->barPos++) {
         servo.write(this->barPos);
         delay(15);
     }

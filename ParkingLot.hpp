@@ -16,22 +16,23 @@ class ParkingLot {
 
 private:
     int barPos;
-    int maxCars;
+     int maxCars;
     int currentCars;
     int ledPin;
     int triggerPin;
     int echoPin;
     Servo servo;
 
+
+    // private methods
     bool isFull() {}
-
-
-public:
-    ParkingLot(ParkingArgs) {};
-
-    ~ParkingLot();
     void raiseBar();
     void closeBar();
+
+public:
+    ParkingLot(ParkingArgs);
+
+    ~ParkingLot();
     void intialize();
     void operator=(const ParkingLot&);
 
