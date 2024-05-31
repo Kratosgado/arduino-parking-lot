@@ -13,17 +13,17 @@ struct ParkingArgs {
 };
 
 class ParkingLot {
-    const int ROADDISTANCE = 30;
+    const int ROAD_DISTANCE = 30;
 
 private:
     int barPos;
-     int maxCars;
+    int maxCars;
     int currentCars;
     int ledPin;
     int triggerPin;
     int echoPin;
+    int servoPin;
     Servo servo;
-
 
     // private methods
     bool isFull();
@@ -32,14 +32,13 @@ private:
 
 public:
     ParkingLot() {};
-    ParkingLot(ParkingArgs);
-
-
+    ParkingLot(ParkingArgs&);
     ~ParkingLot();
-    void intialize();
+
+    void setup();
+    void listen();
     void operator=(const ParkingLot&);
 
 };
-
 
 #endif // PARKING_LOT

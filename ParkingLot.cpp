@@ -1,20 +1,22 @@
 #include "ParkingLot.hpp"
 
-ParkingLot::ParkingLot(ParkingArgs args) {
-    Serial.begin(9600);
-
+ParkingLot::ParkingLot(ParkingArgs& args) {
     this->maxCars = args.maxCars;
     this->ledPin = args.ledPin;
     this->triggerPin = args.triggerPin;
     this->echoPin = args.echoPin;
-    this->servo.attach(args.servoPin);
+    this->servoPin = args.servoPin;
 
     this->barPos = 0;
+};
 
+void ParkingLot::setup() {
+    Serial.begin(9600);
     pinMode(this->ledPin, OUTPUT);
     pinMode(this->triggerPin, OUTPUT);
     pinMode(this->echoPin, INPUT);
-};
+    this->servo.attach(this->servoPin);
+}
 
 void ParkingLot::operator=(const ParkingLot& right) {
     this->barPos = right.barPos;
@@ -24,7 +26,7 @@ void ParkingLot::operator=(const ParkingLot& right) {
     this->maxCars = right.maxCars;
 }
 
-void ParkingLot::intialize() {
+void ParkingLot::listen() {
     digitalWrite(this->triggerPin, LOW);
     delayMicroseconds(2);
 
@@ -38,7 +40,7 @@ void ParkingLot::intialize() {
     int distance = (duration * 0.0343) / 2;
 
     // detect if something is passing
-    if (distance + 5 < ROADDISTANCE && this->currentCars < this->maxCars) {
+    if (distance + 5 < ROAD_DISTANCE && this->currentCars < this->maxCars) {
         Serial.print("object passing at distance: ");
         Serial.print(distance);
         Serial.print(" cm");

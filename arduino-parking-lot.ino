@@ -1,13 +1,13 @@
 #include <Servo.h>
 #include "ParkingLot.hpp"
 
-ParkingLot parkingLot;
+ParkingArgs parkingArgs;
+ParkingLot parkingLot = ParkingLot(parkingArgs);
 
 void setup() {
-  ParkingArgs parkingArgs;
-  parkingLot = ParkingLot(parkingArgs);
+  parkingLot.setup();
 }
 
 void loop() {
-  parkingLot.intialize();
+  parkingLot.listen();
 }
