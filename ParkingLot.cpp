@@ -8,6 +8,7 @@ ParkingLot::ParkingLot(ParkingArgs& args) {
     this->servoPin = args.servoPin;
 
     this->barPos = 0;
+    this->collisions = 0;
 };
 
 void ParkingLot::setup() {
@@ -16,6 +17,8 @@ void ParkingLot::setup() {
     pinMode(this->triggerPin, OUTPUT);
     pinMode(this->echoPin, INPUT);
     this->servo.attach(this->servoPin);
+
+    this->servo.write(this->barPos);
 }
 
 void ParkingLot::operator=(const ParkingLot& right) {
@@ -40,26 +43,35 @@ void ParkingLot::listen() {
     int distance = (duration * 0.0343) / 2;
 
     // detect if something is passing
-    if (distance + 5 < ROAD_DISTANCE && this->currentCars < this->maxCars) {
-        Serial.print("object passing at distance: ");
-        Serial.print(distance);
-        Serial.print(" cm");
-        Serial.print("\n number of cars parked: ");
-        Serial.println(currentCars);
-        digitalWrite(ledPin, HIGH);
-        currentCars += 1;
+    if (distance + 5 < ROAD_DISTANCE) {
+        this->collisions += 1;
+        if (this->collisions > 10 && this->currentCars < this->maxCars) {
+            currentCars += 1;
+            Serial.print("object passing at distance: ");
+            Serial.print(distance);
+            Serial.print(" cm");
+            Serial.print("\n number of cars parked: ");
+            Serial.println(currentCars);
+            this->turnLightOn();
+            if (this->currentCars == this->maxCars) {
+                this->turnLightOn();
+                this->closeBar();
+            }
+            // this->raiseBar();
+            delay(500);
+            this->collisions = 0;
+            return;
+        }
+        this->turnLightOff();
+        return;
     }
-    else if (this->currentCars == this->maxCars) {
-        digitalWrite(ledPin, HIGH);
-    }
-    else {
-        digitalWrite(ledPin, LOW);
-    }
-    delay(500);
+    this->collisions = 0;
+    // this->closeBar();
+    this->turnLightOff();
 }
 
 void ParkingLot::closeBar() {
-    for (this->barPos; this->barPos >= 0; this->barPos++) {
+    for (this->barPos; this->barPos >= 0; this->barPos--) {
         servo.write(this->barPos);
         delay(15);
     }

@@ -23,12 +23,22 @@ private:
     int triggerPin;
     int echoPin;
     int servoPin;
+    int collisions;
+
+
     Servo servo;
 
     // private methods
     bool isFull();
     void raiseBar();
     void closeBar();
+
+    void turnLightOn() {
+        digitalWrite(this->ledPin, HIGH);
+    }
+    void turnLightOff() {
+        digitalWrite(this->ledPin, LOW);
+    }
 
 public:
     ParkingLot() {};
