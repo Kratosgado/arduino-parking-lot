@@ -10,6 +10,10 @@ ParkingLot::ParkingLot(ParkingArgs args) {
     this->servo.attach(args.servoPin);
 
     this->barPos = 0;
+
+    pinMode(this->ledPin, OUTPUT);
+    pinMode(this->triggerPin, OUTPUT);
+    pinMode(this->echoPin, INPUT);
 };
 
 void ParkingLot::operator=(const ParkingLot& right) {
